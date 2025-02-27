@@ -9,7 +9,7 @@
 }
 
 h1 {
-  color: black;
+  color: white;
   text-align: center;
 }
 
@@ -19,11 +19,46 @@ p {
   text-align: center;
   
 }
-    
+.center {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 50%;
+}
+ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background-color: #333;
+}
+li {
+  float: left;
+}
+
+li a {
+  display: block;
+  color: white;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+}
+
+/* Change the link color to #111 (black) on hover */
+li a:hover {
+  background-color: #111;
+}
   </style>
   <body>
-    <h1>Welcome to the Official Website for The Democratic Republic of Ramona!</h1>
-  <img src="ramonaflag.webp" alt="Flag" style="width: 40%;" >
+    <ul>
+  <li><a href="index.html">Home</a></li>
+  <li><a href="pledge.html">Pledge of Allegiance</a></li>
+  <li><a href="history.html">History</a></li>
+    </ul>
+    <h1>The Democratic Republic of Ramona!</h1>
+    <p>Welcome to the official website for the Democratic Republic of Ramona. This website is for people wishing
+      to join the Democratic Republic of Ramona, or current members seeking farther information. </p>
+  <img src="ramonaflag.webp" alt="Flag" style="width: 40%;" class="center">
   <a href="history.html">History page<a>
   </body>
 
