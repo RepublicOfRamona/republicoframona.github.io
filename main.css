@@ -6,16 +6,21 @@ body {
   background-color: var(--background-color);
   color: var(--text-color);
   transition: background-color 0.3s, color 0.3s;
+  padding: 0 10%;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
 }
 
 h1, h2, h3, h4, h5, h6 {
   text-align: center;
   margin: 1rem 0;
+  color: var(--heading-color);
 }
 
 p {
   margin: 1rem;
   text-align: justify;
+  color: var(--text-color);
 }
 
 img {
@@ -54,6 +59,7 @@ img {
   text-decoration: none;
   color: var(--nav-text-color);
   transition: background-color 0.3s, color 0.3s;
+  color: var(--text-color);
 }
 
 .navbar .menu li a:hover {
@@ -74,51 +80,6 @@ img {
   width: 25px;
   margin: 4px 0;
   transition: background-color 0.3s;
-}
-
-/* Mobile view */
-@media (max-width: 768px) {
-  .navbar .menu {
-      display: none;
-      flex-direction: column;
-      background-color: var(--nav-background-color);
-      position: absolute;
-      top: 100%; /* Position the menu directly below the navbar */
-      left: 0;
-      width: 100%;
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-      z-index: 10; /* Ensure the dropdown menu appears above other content */
-  }
-
-  .navbar .menu.active {
-      display: flex;
-  }
-
-  .navbar .hamburger {
-      display: flex;
-  }
-}
-
-/* Light mode */
-:root {
-  --background-color: #ffffff;
-  --text-color: #333333;
-  --nav-background-color: #f8f9fa;
-  --nav-text-color: #007bff;
-  --nav-hover-background-color: #e2e6ea;
-  --nav-hover-text-color: #0056b3;
-}
-
-/* Dark mode */
-@media (prefers-color-scheme: dark) {
-  :root {
-      --background-color: #121212;
-      --text-color: #e0e0e0;
-      --nav-background-color: #1f1f1f;
-      --nav-text-color: #bb86fc;
-      --nav-hover-background-color: #333333;
-      --nav-hover-text-color: #ffffff;
-  }
 }
 
 /* Notices styles */
@@ -153,4 +114,103 @@ img {
 .notice-container p em {
   font-style: italic;
   color: var(--notice-meta-text-color, #888);
+}
+
+/* Popup styles */
+.popup {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 1000;
+}
+
+.popup-content {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: var(--popup-background-color); /* Use variable for background */
+  color: var(--popup-text-color); /* Use variable for text color */
+  padding: 20px;
+  border-radius: 10px;
+  text-align: center;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.close {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  font-size: 20px;
+  cursor: pointer;
+  color: var(--popup-close-color); /* Use variable for close button color */
+}
+
+/* Light mode */
+:root {
+  --background-color: #ffffff;
+  --text-color: #333333;
+  --heading-color: #222222;
+  --nav-background-color: #f8f9fa;
+  --nav-text-color: #007bff;
+  --nav-hover-background-color: #e2e6ea;
+  --nav-hover-text-color: #0056b3;
+  --notice-background-color: #f8f9fa;
+  --notice-border-color: #dee2e6;
+  --notice-text-color: #555555;
+  --notice-heading-color: #007bff;
+  --notice-subheading-color: #333333;
+  --notice-meta-text-color: #888888;
+  --popup-background-color: #ffffff;
+  --popup-text-color: #333333;
+  --popup-close-color: #ff0000;
+}
+
+/* Dark mode */
+@media (prefers-color-scheme: dark) {
+  :root {
+      --background-color: #121212;
+      --text-color: #e0e0e0;
+      --heading-color: #ffffff;
+      --nav-background-color: #1f1f1f;
+      --nav-text-color: #bb86fc;
+      --nav-hover-background-color: #333333;
+      --nav-hover-text-color: #ffffff;
+      --notice-background-color: #1f1f1f;
+      --notice-border-color: #333333;
+      --notice-text-color: #cccccc;
+      --notice-heading-color: #bb86fc;
+      --notice-subheading-color: #e0e0e0;
+      --notice-meta-text-color: #aaaaaa;
+      --popup-background-color: #1f1f1f;
+      --popup-text-color: #e0e0e0;
+      --popup-close-color: #ff6666;
+  }
+}
+
+/* Mobile view */
+@media (max-width: 768px) {
+  .navbar .menu {
+      display: none;
+      flex-direction: column;
+      background-color: var(--nav-background-color);
+      position: absolute;
+      top: 100%; /* Position the menu directly below the navbar */
+      left: 0;
+      width: 100%;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      z-index: 10; /* Ensure the dropdown menu appears above other content */
+  }
+
+  .navbar .menu.active {
+      display: flex;
+  }
+
+  .navbar .hamburger {
+      display: flex;
+  }
 }

@@ -3,7 +3,8 @@
   <head>
     <title>Republic Of Ramona</title>
     <link rel="stylesheet" href="main.css">
-    <script src="script.js"></script>
+    <script src="navbar.js"></script>
+    <script src="popups.js"></script>
   <body>
    <!-- Example for index.html -->
     <div class="navbar">
@@ -25,5 +26,13 @@
     <p>Welcome to the official website for the Democratic Republic of Ramona. This website is for people wishing
       to join the Democratic Republic of Ramona, or current members seeking farther information. </p>
   <img src="ramonaflag.webp" alt="Flag" style="width: 40%;" class="center">
+
+    <div id="popup" class="popup">
+      <div class="popup-content">
+        <span class="close" onclick="closePopup()">&times;</span>
+        <h2>Welcome!</h2>
+        <p>Thank you for visiting the Democratic Republic of Ramona's official website!</p>
+      </div>
+    </div>
   </body>
 </html>
