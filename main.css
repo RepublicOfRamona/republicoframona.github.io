@@ -193,7 +193,7 @@ img {
 }
 
 /* Mobile view */
-@media (max-width: 768px) {
+@media (max-width: 600px) {
   .navbar .menu {
       display: none;
       flex-direction: column;
