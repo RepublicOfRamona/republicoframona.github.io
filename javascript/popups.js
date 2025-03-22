@@ -1,7 +1,7 @@
 window.onload = function() {
-    if (!sessionStorage.getItem('popupShown')) {
+    if (!sessionStorage.getItem('welcomePopupShown')) {
         document.getElementById('popup').style.display = 'block';
-        sessionStorage.setItem('popupShown', 'true');
+        sessionStorage.setItem('welcomePopupShown', 'true');
     }
 };
 
