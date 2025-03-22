@@ -5,7 +5,8 @@ body {
   background-color: var(--background-color);
   color: var(--text-color);
   margin-top: 60px;
-
+  margin-left: 8rem;
+  margin-right: 8rem;
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -20,7 +21,7 @@ h1, h2, h3, h4, h5, h6 {
   background-color: var(--nav-background-color);
   position: fixed;
   top: 0px;
-  width: 100%;;
+  width: calc(100% - 16rem);
 }
 
 li {
