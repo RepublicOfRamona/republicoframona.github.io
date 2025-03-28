@@ -51,6 +51,15 @@ li a:hover {
   border-radius: 0.5rem;
 }
 
+.password-input {
+  background-color: var(--notice-background-color);
+  border: 1px solid var(--notice-border-color);
+  padding: 10px;
+  margin: auto;
+  margin-bottom: 2.5rem;
+  border-radius: 0.5rem;
+}
+
 iframe {
   width: 100%;
   height: 100vh;
@@ -75,6 +84,17 @@ button {
   cursor: pointer;
 }
 
+button#printthispage {
+  padding: 0.5rem;
+  border: none;
+  border-radius: 0.2rem;
+  background-color: var(--print-background-color);
+  color: var(--inputs-text-color);
+  cursor: pointer;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+}
+
 /* Light mode */
 :root {
   --background-color: #ffffff;
@@ -95,6 +115,7 @@ button {
   --popup-close-color: #ff0000;
   --inputs-background-color: #ffffff;
   --inputs-text-color: #333333;
+  --print-background-color: #dddddd;
 }
 
 /* Dark mode */
@@ -118,6 +139,7 @@ button {
       --popup-close-color: #ff6666;
       --inputs-background-color: #121212;
       --inputs-text-color: #e0e0e0;
+      --print-background-color: #333333;
   }
 }
 
