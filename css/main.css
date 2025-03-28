@@ -51,12 +51,12 @@ li a:hover {
   border-radius: 0.5rem;
 }
 
-.password-input {
+.password-container {
   background-color: var(--notice-background-color);
   border: 1px solid var(--notice-border-color);
   padding: 10px;
   margin: auto;
-  margin-bottom: 2.5rem;
+  max-width: 800px;
   border-radius: 0.5rem;
 }
 
