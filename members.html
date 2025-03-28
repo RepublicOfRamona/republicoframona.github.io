@@ -4,20 +4,29 @@
     <title>Republic Of Ramona</title>
     <link rel="stylesheet" href="/css/main.css">
     <link rel="stylesheet" href="/css/popup.css">
-      <script src="/javascript/navbar.js"></script>
-      <script src="/javascript/popups.js"></script>
+    <script src="/javascript/navbar.js"></script>
+    <script src="/javascript/popups.js"></script>
+  </head>
   <body>
-   <!-- Example for index.html -->
     <div class="navbar">
       <ul class="menu">
-          <li><a href="index">Home</a></li>
-          <li><a href="pledge">Pledge of Allegiance</a></li>
-          <li><a href="history">History</a></li>
-          <li><a href="members">Members</a></li>
-          <li><a href="notices">Notices</a></li>
+        <li><a href="index">Home</a></li>
+        <li><a href="pledge">Pledge of Allegiance</a></li>
+        <li><a href="history">History</a></li>
+        <li><a href="members">Members</a></li>
+        <li><a href="notices">Notices</a></li>
       </ul>
     </div>
+
     <h1>Welcome to the Members only area</h1>
-    <p>This section is currently being worked on and will be availabe soon</p>
+    <p>Please enter your username and password below</p>
+    <div class="password-container">
+      <input type="text" id="usernameInput" placeholder="Enter your username"/>
+      <input type="password" id="passwordInput" placeholder="Enter your password"/>
+      <button id="loginButton">Login</button>
+      <div id="errorMessage" style="color: red; margin-top: 10px;"></div>
+    </div>
+
+    <script src="/javascript/login.js"></script>
   </body>
 </html>
