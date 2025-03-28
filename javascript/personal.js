@@ -4,7 +4,6 @@ expiry.setDate(expiry.getDate() + 7);
 
 function setdetails() {
     const password = document.getElementById('passwordInput').value;
-    const errorMessage = document.getElementById('errorMessage');
     const username = document.getElementById('usernameInput').value;
     document.cookie = `password=${password}; expires=${expiry.toUTCString()}; path=/`;
     document.cookie = `username=${username}; path=/`;
