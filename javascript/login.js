@@ -11,11 +11,8 @@ function validatePassword() {
         const decodedPassword = atob(pass);
         if (input === decodedPassword && acceptedUsername.includes(username)) {
             window.location.href = atob(URL);
-        if (document.cookie.includes(`username=${username}`) && document.cookie.includes(`password=${input}`)) {
+        } else if (document.cookie.includes(`username=${username}`) && document.cookie.includes(`password=${input}`)) {
             window.location.href = atob(URL);z
-        } else {
-            errorMessage.textContent = "Invalid username or password. Please try again.";
-        }
         } else {
             errorMessage.textContent = "Invalid username or password. Please try again.";
         }
