@@ -58,6 +58,23 @@ iframe {
   display: block;
 }
 
+input {
+  padding: 0.5rem;
+  border: none;
+  border-radius: 0.2rem;
+  background-color: var(--inputs-background-color);
+  color: var(--inputs-text-color);
+}
+
+button {
+  padding: 0.5rem;
+  border: none;
+  border-radius: 0.2rem;
+  background-color: var(--inputs-background-color);
+  color: var(--inputs-text-color);
+  cursor: pointer;
+}
+
 /* Light mode */
 :root {
   --background-color: #ffffff;
@@ -67,7 +84,7 @@ iframe {
   --nav-text-color: #007bff;
   --nav-hover-background-color: #e2e6ea;
   --nav-hover-text-color: #0056b3;
-  --notice-background-color: #f8f9fa;
+  --notice-background-color: #ececec;
   --notice-border-color: #dee2e6;
   --notice-text-color: #555555;
   --notice-heading-color: #007bff;
@@ -76,6 +93,8 @@ iframe {
   --popup-background-color: #ffffff;
   --popup-text-color: #333333;
   --popup-close-color: #ff0000;
+  --inputs-background-color: #ffffff;
+  --inputs-text-color: #333333;
 }
 
 /* Dark mode */
@@ -97,6 +116,8 @@ iframe {
       --popup-background-color: #1f1f1f;
       --popup-text-color: #e0e0e0;
       --popup-close-color: #ff6666;
+      --inputs-background-color: #121212;
+      --inputs-text-color: #e0e0e0;
   }
 }
 

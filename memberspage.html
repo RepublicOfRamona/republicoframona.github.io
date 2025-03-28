@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Republic Of Ramona</title>
+    <link rel="stylesheet" href="/css/main.css">
+    <link rel="stylesheet" href="/css/popup.css">
+    <script src="/javascript/navbar.js"></script>
+    <script src="/javascript/popups.js"></script>
+  </head>
+  <body>
+    <div class="navbar">
+      <ul class="menu">
+        <li><a href="index">Home</a></li>
+        <li><a href="pledge">Pledge of Allegiance</a></li>
+        <li><a href="history">History</a></li>
+        <li><a href="members">Members</a></li>
+        <li><a href="notices">Notices</a></li>
+      </ul>
+    </div>
+
+    <h1>Welcome to the Members only area</h1>
+    <h2 id="welcomeMessage">Welcome</h2>
+    <p>Here you can find information about the Republic of Ramona</p>
+    <details>
+      <summary>Secrets</summary>
+      <p>We were really made to become an empire</p>
+      <p>And maybe to bully ChatGPT</p>
+    </details>
+    <br>
+    <div class="notice-container">
+      <p>You can set your own username and password below</p>
+      <p>This user name password is NOT secure <br> It will be stored on YOUR device for 7 days</p>
+      <input type="text" id="usernameInput" placeholder="Enter your new username"/>
+      <input type="password" id="passwordInput" placeholder="Enter your new password"/>
+      <button id="setuserpass">Set</button>
+      <div id="errorMessage" style="color: red; margin-top: 10px;"></div>
+      <script src="/javascript/personal.js"></script>
+    </div>
+  </body>
+</html>
