@@ -1,6 +1,6 @@
 const username = document.cookie.split('; ').find(row => row.startsWith('username='))?.split('=')[1];
 const expiry = new Date();
-expiry.setDate(expiry.getDate() + 7);
+expiry.setDate(expiry.getDate() + 30);
 
 function setdetails() {
     const password = document.getElementById('passwordInput').value;
