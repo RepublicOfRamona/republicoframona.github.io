@@ -1,4 +1,4 @@
-const pass = "UmFtb25hNGV2ZXI=";
+const pass = "MTIzNA==";
 const URL = "bWVtYmVyc3BhZ2U=";
 const acceptedUsername = ["Leader", "Member"];
 
