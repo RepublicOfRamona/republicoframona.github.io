@@ -2,6 +2,22 @@ const pass = "MTIzNA==";
 const URL = "bWVtYmVyc3BhZ2U=";
 const acceptedUsername = ["Leader", "Member"];
 
+function getCookie(cname) {
+    let name = cname + "=";
+    let decodedCookie = decodeURIComponent(document.cookie);
+    let ca = decodedCookie.split(';');
+    for(let i = 0; i <ca.length; i++) {
+      let c = ca[i];
+      while (c.charAt(0) == ' ') {
+        c = c.substring(1);
+      }
+      if (c.indexOf(name) == 0) {
+        return atob(c.substring(name.length, c.length));
+      }
+    }
+    return "";
+  }
+
 function validatePassword() {
     const input = document.getElementById('passwordInput').value;
     const errorMessage = document.getElementById('errorMessage');
@@ -11,8 +27,10 @@ function validatePassword() {
         const decodedPassword = atob(pass);
         if (input === decodedPassword && acceptedUsername.includes(username)) {
             window.location.href = atob(URL);
-        } else if (document.cookie.includes(`username=${username}`) && document.cookie.includes(`password=${input}`)) {
-            window.location.href = atob(URL);z
+        } else if (getCookie("username") !== "" || getCookie("password") !== "") {
+            if (username === getCookie("username") && input === getCookie("password")) {
+                window.location.href = atob(URL);
+            }
         } else {
             errorMessage.textContent = "Invalid username or password. Please try again.";
         }
