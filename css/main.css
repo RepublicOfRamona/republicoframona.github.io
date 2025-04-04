@@ -51,6 +51,10 @@ li a:hover {
   border-radius: 0.5rem;
 }
 
+.notice-image {
+  max-width: inherit;
+}
+
 .password-container {
   background-color: var(--notice-background-color);
   border: 1px solid var(--notice-border-color);
