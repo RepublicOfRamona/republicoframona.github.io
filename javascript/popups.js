@@ -1,7 +1,7 @@
 window.onload = function() {
-    if (!sessionStorage.getItem('welcomePopupShown')) {
+    if (!sessionStorage.getItem('pledgePopupShown')) {
         document.getElementById('popup').style.display = 'block';
-        sessionStorage.setItem('welcomePopupShown', 'true');
+        sessionStorage.setItem('pledgePopupShown', 'true');
     }
 };
 
