@@ -1,5 +1,5 @@
 const pass = "MTIzNA==";
-const backuppass = "S0xkZnNkZjk=";
+const backuppass = "SWYzN2lzT3cx";
 const backupusername = "QmFja3Vw";
 const URL = "bWVtYmVyc3BhZ2U=";
 const acceptedUsername = ["Leader", "Member"];
