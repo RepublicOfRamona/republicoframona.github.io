@@ -99,7 +99,7 @@ button#printthispage {
   margin-bottom: 1rem;
 }
 
-button {
+a.btn {
   padding: 0.5rem;
   border: none;
   border-radius: 0.2rem;
