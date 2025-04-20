@@ -9,7 +9,7 @@ jobs:
   generate-sitemap:
     runs-on: ubuntu-latest
     permissions:
-      contents: write  # Grant write access to the repo contents for this workflow only
+      contents: write  # Allow write access for this workflow only
 
     steps:
       - name: Checkout Repository
@@ -25,7 +25,11 @@ jobs:
 
       - name: Generate Sitemap
         run: |
-          sitemap-generator https://republicoframona.github.io/ -o ./sitemap.xml --exclude-url-patterns "/memberspage.html|/members.html"
+          sitemap-generator https://republicoframona.github.io/ -o ./sitemap.xml --last-mod
+
+      - name: Add Priority to Sitemap
+        run: |
+          sed -i 's|</url>|<priority>0.8</priority></url>|g' sitemap.xml
 
       - name: Configure Git
         run: |
