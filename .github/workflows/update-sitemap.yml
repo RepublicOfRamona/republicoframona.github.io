@@ -1,0 +1,36 @@
+name: Update Sitemap Automatically
+
+on:
+  push:
+    branches:
+      - main  # Run the workflow on pushes to the 'main' branch
+
+jobs:
+  generate-sitemap:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v3  # Check out your repository
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3  # Set up Node.js to run the sitemap generator
+        with:
+          node-version: '16'
+
+      - name: Install Sitemap Generator
+        run: npm install -g sitemap-generator-cli  # Install the sitemap generator CLI tool
+
+      - name: Generate Sitemap
+        run: |
+          sitemap-generator https://republicoframona.github.io/ -o ./sitemap.xml --exclude-url-patterns "/memberspage.html|/members.html"
+
+      - name: Commit and Push Sitemap
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git add sitemap.xml
+          git commit -m "Automatically updated sitemap.xml"
+          git push
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
