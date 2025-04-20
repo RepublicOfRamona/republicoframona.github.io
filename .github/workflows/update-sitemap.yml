@@ -8,6 +8,8 @@ on:
 jobs:
   generate-sitemap:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write  # Grant write access to the repo contents for this workflow only
 
     steps:
       - name: Checkout Repository
@@ -25,12 +27,15 @@ jobs:
         run: |
           sitemap-generator https://republicoframona.github.io/ -o ./sitemap.xml --exclude-url-patterns "/memberspage.html|/members.html"
 
-      - name: Commit and Push Sitemap
+      - name: Configure Git
         run: |
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
+
+      - name: Commit and Push Sitemap
+        run: |
           git add sitemap.xml
-          git commit -m "Automatically updated sitemap.xml"
+          git diff --cached --exit-code || git commit -m "Automatically updated sitemap.xml"
           git push
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
