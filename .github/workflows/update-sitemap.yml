@@ -3,7 +3,7 @@ name: Update Sitemap Automatically
 on:
   push:
     branches:
-      - main  # Run the workflow on pushes to the 'main' branch
+      - main  # Trigger the workflow on pushes to the 'main' branch
 
 jobs:
   generate-sitemap:
@@ -12,30 +12,41 @@ jobs:
       contents: write  # Allow write access for this workflow only
 
     steps:
+      # Step 1: Check out the repository
       - name: Checkout Repository
-        uses: actions/checkout@v3  # Check out your repository
+        uses: actions/checkout@v3
 
+      # Step 2: Set up Node.js
       - name: Set up Node.js
-        uses: actions/setup-node@v3  # Set up Node.js to run the sitemap generator
+        uses: actions/setup-node@v3
         with:
           node-version: '16'
 
+      # Step 3: Install Sitemap Generator CLI
       - name: Install Sitemap Generator
-        run: npm install -g sitemap-generator-cli  # Install the sitemap generator CLI tool
+        run: npm install -g sitemap-generator-cli
 
+      # Step 4: Generate Sitemap with 'sitemap-generator-cli'
       - name: Generate Sitemap
         run: |
           sitemap-generator https://republicoframona.github.io/ -o ./sitemap.xml --last-mod
 
-      - name: Add Priority to Sitemap
+      # Step 5: Adjust 'lastmod' and Add 'priority' Values
+      - name: Add Priority and Adjust Lastmod
         run: |
+          # Add <priority>0.8</priority> to each <url> block
           sed -i 's|</url>|<priority>0.8</priority></url>|g' sitemap.xml
+          
+          # Ensure <lastmod> is updated based on the date of workflow execution (2025-04-20 in this case)
+          sed -i "s|<lastmod>.*</lastmod>|<lastmod>2025-04-20</lastmod>|g" sitemap.xml
 
+      # Step 6: Configure Git for Commit
       - name: Configure Git
         run: |
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
 
+      # Step 7: Commit and Push the Updated Sitemap
       - name: Commit and Push Sitemap
         run: |
           git add sitemap.xml
