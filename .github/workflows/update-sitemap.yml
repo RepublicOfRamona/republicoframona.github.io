@@ -28,25 +28,42 @@ jobs:
 
       # Step 4: Generate Sitemap with 'sitemap-generator-cli'
       - name: Generate Sitemap
-        run: |
-          sitemap-generator https://republicoframona.github.io/ -o ./sitemap.xml --last-mod
+        run: sitemap-generator https://republicoframona.github.io/ -o ./sitemap.xml --last-mod
 
-      # Step 5: Adjust 'lastmod' and Add 'priority' Values
-      - name: Add Priority and Adjust Lastmod
+      # Step 5: Update 'lastmod' with Actual File Modification Dates
+      - name: Update Lastmod with Git History
         run: |
-          # Add <priority>0.8</priority> to each <url> block
-          sed -i 's|</url>|<priority>0.8</priority></url>|g' sitemap.xml
-          
-          # Ensure <lastmod> is updated based on the date of workflow execution (2025-04-20 in this case)
-          sed -i "s|<lastmod>.*</lastmod>|<lastmod>2025-04-20</lastmod>|g" sitemap.xml
+          # Loop through each <loc> in the sitemap.xml and replace lastmod with actual file modification dates
+          while read -r loc; do
+            # Extract the URL path from the <loc> tag
+            url_path=$(echo $loc | sed -n 's|.*<loc>https://republicoframona\.github\.io||; s|</loc>.*||p')
 
-      # Step 6: Configure Git for Commit
+            # Skip if the URL path is empty or points to the root
+            [[ -z "$url_path" || "$url_path" == "/" ]] && continue
+
+            # Get the last commit date for the corresponding file using Git
+            file_path="./${url_path#/}"
+            if [[ -f "$file_path" ]]; then
+              lastmod=$(git log -1 --format=%cs -- "$file_path")
+            else
+              lastmod=$(date +%Y-%m-%d)  # Default to today if the file doesn't exist locally
+            fi
+
+            # Replace the <lastmod> value in the sitemap.xml
+            sed -i "s|<loc>https://republicoframona.github.io${url_path}</loc>.*<lastmod>.*</lastmod>|<loc>https://republicoframona.github.io${url_path}</loc><lastmod>${lastmod}</lastmod>|" sitemap.xml
+          done < <(grep "<loc>" sitemap.xml)
+
+      # Step 6: Add Priority to Sitemap
+      - name: Add Priority
+        run: sed -i 's|</url>|<priority>0.8</priority></url>|g' sitemap.xml
+
+      # Step 7: Configure Git for Commit
       - name: Configure Git
         run: |
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
 
-      # Step 7: Commit and Push the Updated Sitemap
+      # Step 8: Commit and Push the Updated Sitemap
       - name: Commit and Push Sitemap
         run: |
           git add sitemap.xml
