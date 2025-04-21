@@ -12,9 +12,11 @@ jobs:
       contents: write  # Allow write access for this workflow only
 
     steps:
-      # Step 1: Check out the repository
+      # Step 1: Check out the repository with full history
       - name: Checkout Repository
         uses: actions/checkout@v3
+        with:
+          fetch-depth: 0  # Fetch the full Git history
 
       # Step 2: Set up Node.js
       - name: Set up Node.js
@@ -30,7 +32,11 @@ jobs:
       - name: Generate Sitemap
         run: sitemap-generator https://republicoframona.github.io/ -o ./sitemap.xml --last-mod
 
-      # Step 5: Update 'lastmod' with Actual File Modification Dates
+      # Step 5: Debug Sitemap
+      - name: Debug Sitemap Before Modifications
+        run: cat sitemap.xml
+
+      # Step 6: Update 'lastmod' with Actual File Modification Dates
       - name: Update Lastmod with Git History
         run: |
           # Loop through each <loc> in the sitemap.xml and replace lastmod with actual file modification dates
@@ -53,17 +59,21 @@ jobs:
             sed -i "s|<loc>https://republicoframona.github.io${url_path}</loc>.*<lastmod>.*</lastmod>|<loc>https://republicoframona.github.io${url_path}</loc><lastmod>${lastmod}</lastmod>|" sitemap.xml
           done < <(grep "<loc>" sitemap.xml)
 
-      # Step 6: Add Priority to Sitemap
+      # Step 7: Add Priority to Sitemap
       - name: Add Priority
         run: sed -i 's|</url>|<priority>0.8</priority></url>|g' sitemap.xml
 
-      # Step 7: Configure Git for Commit
+      # Step 8: Debug Modified Sitemap
+      - name: Debug Sitemap After Modifications
+        run: cat sitemap.xml
+
+      # Step 9: Configure Git for Commit
       - name: Configure Git
         run: |
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
 
-      # Step 8: Commit and Push the Updated Sitemap
+      # Step 10: Commit and Push the Updated Sitemap
       - name: Commit and Push Sitemap
         run: |
           git add sitemap.xml
