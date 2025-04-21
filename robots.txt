@@ -1,4 +1,6 @@
 User-agent: *
 Allow: /
+Disallow: /memberspage
 Disallow: /memberspage.html
+Disallow: /members
 Disallow: /members.html
