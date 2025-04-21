@@ -1,12 +1,9 @@
-name: Generate Minimal Sitemap
+name: Update Sitemap Automatically
 
 on:
   push:
     branches:
-      - main  # Run the workflow on pushes to the 'main' branch
-  pull_request:
-    branches:
-      - main  # Run the workflow on pull requests to the 'main' branch
+      - main  # Trigger the workflow on pushes to the 'main' branch
 
 jobs:
   generate-sitemap:
@@ -15,37 +12,68 @@ jobs:
       contents: write  # Allow write access for this workflow only
 
     steps:
-      # Step 1: Check out the repository with sparse checkout enabled
+      # Step 1: Check out the repository with full history
       - name: Checkout Repository
         uses: actions/checkout@v3
         with:
           fetch-depth: 0  # Fetch the full Git history
-          sparse-checkout: "sitemap.xml"  # Only allow modifications to sitemap.xml
 
       # Step 2: Set up Node.js
       - name: Set up Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: 'lts/*'  # Use the latest LTS version of Node.js
+          node-version: '16'
 
       # Step 3: Install Sitemap Generator CLI
       - name: Install Sitemap Generator
-        run: npm install -g sitemap-generator-cli@2.5.2  # Pin a specific version
+        run: npm install -g sitemap-generator-cli
 
-      # Step 4: Generate Minimal Sitemap
+      # Step 4: Generate Sitemap with 'sitemap-generator-cli'
       - name: Generate Sitemap
-        run: |
-          sitemap-generator https://republicoframona.github.io/ -o ./sitemap.xml
-          sed -i '/<lastmod>/d' sitemap.xml  # Remove <lastmod> tags
-          sed -i '/<priority>/d' sitemap.xml  # Remove <priority> tags
+        run: sitemap-generator https://republicoframona.github.io/ -o ./sitemap.xml --last-mod
 
-      # Step 5: Configure Git for Commit
+      # Step 5: Debug Sitemap
+      - name: Debug Sitemap Before Modifications
+        run: cat sitemap.xml
+
+      # Step 6: Update 'lastmod' with Actual File Modification Dates
+      - name: Update Lastmod with Git History
+        run: |
+          # Loop through each <loc> in the sitemap.xml and replace lastmod with actual file modification dates
+          while read -r loc; do
+            # Extract the URL path from the <loc> tag
+            url_path=$(echo $loc | sed -n 's|.*<loc>https://republicoframona\.github\.io||; s|</loc>.*||p')
+
+            # Skip if the URL path is empty or points to the root
+            [[ -z "$url_path" || "$url_path" == "/" ]] && continue
+
+            # Get the last commit date for the corresponding file using Git
+            file_path="./${url_path#/}"
+            if [[ -f "$file_path" ]]; then
+              lastmod=$(git log -1 --format=%cs -- "$file_path")
+            else
+              lastmod=$(date +%Y-%m-%d)  # Default to today if the file doesn't exist locally
+            fi
+
+            # Replace the <lastmod> value in the sitemap.xml
+            sed -i "s|<loc>https://republicoframona.github.io${url_path}</loc>.*<lastmod>.*</lastmod>|<loc>https://republicoframona.github.io${url_path}</loc><lastmod>${lastmod}</lastmod>|" sitemap.xml
+          done < <(grep "<loc>" sitemap.xml)
+
+      # Step 7: Add Priority to Sitemap
+      - name: Add Priority
+        run: sed -i 's|</url>|<priority>0.8</priority></url>|g' sitemap.xml
+
+      # Step 8: Debug Modified Sitemap
+      - name: Debug Sitemap After Modifications
+        run: cat sitemap.xml
+
+      # Step 9: Configure Git for Commit
       - name: Configure Git
         run: |
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
 
-      # Step 6: Commit and Push the Updated Sitemap
+      # Step 10: Commit and Push the Updated Sitemap
       - name: Commit and Push Sitemap
         run: |
           git add sitemap.xml
