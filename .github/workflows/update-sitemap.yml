@@ -50,8 +50,8 @@ jobs:
             sed -i "s|<loc>https://republicoframona.github.io${url_path}</loc>.*<lastmod>.*</lastmod>|<loc>https://republicoframona.github.io${url_path}</loc><lastmod>${lastmod}</lastmod>|" sitemap.xml
           done < <(grep "<loc>" sitemap.xml)
       # Step 6: Add Priority to Sitemap
-      - name: Add Priority
-        run: sed -i 's|</url>|<priority>0.8</priority></url>|g' sitemap.xml
+      # - name: Add Priority
+      #  run: sed -i 's|</url>|<priority>0.8</priority></url>|g' sitemap.xml
 
       # Step 7: Configure Git for Commit
       - name: Configure Git
