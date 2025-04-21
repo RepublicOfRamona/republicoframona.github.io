@@ -103,12 +103,11 @@ a.btn {
   padding: 0.5rem;
   border: none;
   border-radius: 0.2rem;
-  background-color: var(--print-background-color);
+  /*background-color: var(--print-background-color);*/
   color: var(--inputs-text-color);
   cursor: pointer;
   margin-top: 1rem;
   margin-bottom: 1rem;
-  width: 1000px;
   max-width: 900px;
 }
 
@@ -119,6 +118,18 @@ details {
   border-radius: 0.2rem;
   background-color: var(--summary-background-color);
   color: var(--inputs-text-color);
+}
+
+.law-btn button {
+  padding: 0.5rem;
+  border: none;
+  cursor: pointer;
+  border-radius: 0.2rem;
+  background-color: var(--summary-background-color);
+  color: var(--inputs-text-color);
+  width: 100%;
+  font-size: 1rem;;
+  margin-bottom: 1rem;
 }
 
 /* Light mode */
