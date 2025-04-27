@@ -24,6 +24,7 @@ h1, h2, h3, h4, h5, h6 {
   position: fixed;
   top: 0px;
   width: calc(100% - 16rem);
+  z-index: 1001;
 }
 
 li {
@@ -143,6 +144,17 @@ details {
   display: none;
 }
 
+span#menu-button {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 1rem;
+  z-index: 1000;
+  position: fixed;
+  margin: 0;
+  padding: 0;
+}
+
 /* Light mode */
 :root {
   --background-color: #ffffff;
@@ -220,7 +232,7 @@ details {
 
 @media (max-width: 600px) {
   body {
-    margin-top: 10rem;
+    margin-top: 6rem;
     margin-left: 1rem;
     margin-right: 1rem;
   }
@@ -252,6 +264,17 @@ details {
 
   .menu {
     width: calc(100% - 2rem);
+    display: none;
+    top: 100px;
+
+  }
+
+  .menu li {
+    float: none;
+  }
+
+  span#menu-button {
+    display:block;
   }
 
   .autoadjust-text {
